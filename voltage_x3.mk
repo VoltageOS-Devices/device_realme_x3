@@ -21,20 +21,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit device configuration
 $(call inherit-product, device/realme/x3/device.mk)
 
-ifneq ($(VANILLA_BUILD),true)
-# Inherit from goolag
-$(call inherit-product, vendor/google/gms/config.mk)
-$(call inherit-product, vendor/google/pixel/config.mk)
-$(call inherit-product, vendor/gprivate/gprivate.mk)
-$(call inherit-product, vendor/partner_modules/build/mainline_modules_s_flatten_apex.mk)
-else
-$(warning Building vanilla)
-endif
+# Inherit some common Voltage stuff.
+$(call inherit-product, vendor/voltage/config/common_full_phone.mk)
+VOLTAGE_BUILD_TYPE := OFFICIAL
+TARGET_FACE_UNLOCK_SUPPORTED := true
+TARGET_BOOT_ANIMATION_RES := 2160
 
 # Device identifier
-PRODUCT_NAME := aosp_x3
+PRODUCT_NAME := voltage_x3
 PRODUCT_DEVICE := x3
 PRODUCT_BRAND := realme
 PRODUCT_MODEL := X3
 PRODUCT_MANUFACTURER := realme
 PRODUCT_GMS_CLIENTID_BASE := android-oppo
+
+PRODUCT_BUILD_PROP_OVERRIDES += \
+               PRIVATE_BUILD_DESC="msmnile-user 11 RKQ1.200928.002 root07121250 release-keys"
